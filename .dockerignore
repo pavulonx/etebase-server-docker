@@ -1,4 +1,6 @@
-.git/
-.git*
+**/.git
+**/.git*
+server/example-configs
+server/etesync-server.ini.example
 README.md
 LICENSE

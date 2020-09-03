@@ -20,36 +20,24 @@ ENV SERVER="http"
 
 WORKDIR $BASE_DIR
 
-ADD https://github.com/etesync/server-skeleton/archive/${TAG}.tar.gz $BASE_DIR
+COPY --chown=1000:1000 server /etesync
+COPY --chown=1000:1000 context /
 
 RUN set -e && \
     addgroup -g $PGID -S etesync && \
     adduser -h $BASE_DIR -s /bin/sh -D -H -G etesync -u $PUID etesync && \
-    mkdir -p $DATA_DIR && \
-    mkdir -p $CERT_DIR && \
-    mkdir -p $STATIC_DIR && \
-    tar x -v -z -f $BASE_DIR/${TAG}.tar.gz -C $BASE_DIR --strip-components=1 --exclude */example-configs --exclude */.git* && \
     apk add --no-cache openssl libressl mailcap libpq && \
     apk add --no-cache --virtual .build-deps coreutils gcc make linux-headers libc-dev libressl-dev postgresql-dev && \
     pip install -r $BASE_DIR/requirements.txt uwsgi psycopg2-binary && \
     apk del .build-deps && \
+    mkdir -p $DATA_DIR $CERT_DIR $STATIC_DIR && \
     $BASE_DIR/manage.py collectstatic && \
     mv $BASE_DIR/static $STATIC_DIR/ && \
     ln -s $STATIC_DIR/static $BASE_DIR/static && \
-    rm $BASE_DIR/${TAG}.tar.gz $BASE_DIR/requirements.txt $SECRET_FILE && \
+    rm $BASE_DIR/requirements.txt $SECRET_FILE && \
     chown -h etesync:etesync $BASE_DIR/static && \
-    chown -R etesync:etesync $STATIC_DIR && \
-    chmod -R a=rX $STATIC_DIR && \
-    chown -R etesync:etesync $DATA_DIR && \
-    chmod -R ug=rwX $DATA_DIR && \
-    chown -R etesync:etesync $BASE_DIR && \
-    chmod -R ug=rwX $BASE_DIR
-
-COPY --chown=etesync:etesync context /
-
-# Fix permissions
-RUN chown root:root /entrypoint.sh && \
-    chmod a=rx /entrypoint.sh
+    chown -R etesync:etesync $STATIC_DIR $DATA_DIR $BASE_DIR && \
+    chmod -R a=rX $STATIC_DIR
 
 VOLUME $DATA_DIR
 
