@@ -69,7 +69,7 @@ fi
 hLine
 # MIGRATION
 "$manage" showmigrations --list | grep -v '\[X\]'
-if [ -n "$AUTO_MIGRATE" ]; then
+if [ "${AUTO_MIGRATE:-false}" = "true" ]; then
   "$manage" makemigrations
   "$manage" migrate
 else

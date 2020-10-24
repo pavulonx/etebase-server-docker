@@ -75,7 +75,7 @@ At any moment after the database is ready, you can create a new superuser by run
 
 ### Upgrade application and database
 
-If `AUTO_MIGRATE` is not set you can update by running:
+If `AUTO_MIGRATE` is not set to `true` you can update by running:
 
 ```docker exec -it {container_name} python manage.py migrate```
 
