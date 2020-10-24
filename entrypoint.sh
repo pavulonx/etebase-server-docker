@@ -34,14 +34,6 @@ if [ -n "$PG_DB_NAME" ] && [ -n "$PG_USER" ] && [ -n "$PG_PASSWD" ] && [ -n "$PG
   sed -i "s/%PG_HOST%/$PG_HOST/g" "$server_ini"
   sed -i "s/%PG_PORT%/$PG_PORT/g" "$server_ini"
   set -e
-
-  # wait for postgres
-  until PGPASSWORD=$PG_PASSWD psql -h "$PG_HOST" -U "$PG_USER" -c '\q'; do
-    >&2 echo "Postgres is unavailable - sleeping"
-    sleep 1
-  done
-  >&2 echo "Postgres is up, proceeding"
-
 else
   cp -f "$config_templates/etebase-server-sqlite.ini" "$server_ini"
   ETEBASE_DB_NAME=${ETEBASE_DB_NAME:-db.sqlite3}

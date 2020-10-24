@@ -28,8 +28,7 @@ RUN set -e && \
         libressl-dev libffi-dev postgresql-dev && \
     git clone --depth=1 -b $REPO_REF $REPO $BASE_DIR && \
     pip install -r $BASE_DIR/requirements.txt daphne && \
-    apk del .build-deps && \
-    apk add postgresql-client
+    apk del .build-deps
 
 RUN set -e && \
     $BASE_DIR/manage.py collectstatic && \
