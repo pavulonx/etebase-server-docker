@@ -3,8 +3,8 @@
 ![Release images](https://github.com/rozenj/etebase-server-docker/workflows/Release%20images/badge.svg)
 ![Build Alpine based image master](https://github.com/rozenj/etebase-server-docker/workflows/Build%20Alpine%20based%20image%20master/badge.svg)
 ![Build Debian based image master](https://github.com/rozenj/etebase-server-docker/workflows/Build%20Debian%20based%20image%20master/badge.svg)
-Docker image for [EteBase](https://www.etebase.com/) based on the [server](https://github.com/etesync/server) repository by [Tom Hacohen](https://github.com/tasn).
 
+Docker image for [EteBase](https://www.etebase.com/) based on the [server](https://github.com/etesync/server) repository by [Tom Hacohen](https://github.com/tasn).
 
 ## Tags
 
