@@ -3,12 +3,11 @@ FROM python:3.8.5-alpine
 ARG REPO='https://github.com/etesync/server.git'
 ARG REPO_REF='master'
 
-ENV BASE_DIR /etebase
-ENV DATA_DIR /data
-ENV STATIC_DIR /var/www/etebase
+ARG BASE_DIR=/etebase
+ARG DATA_DIR=/data
+ARG STATIC_DIR=/var/www/etebase
 
-ENV SECRET_FILE $BASE_DIR/secret.txt
-ENV ETEBASE_DB_PATH $DATA_DIR/db.sqlite3
+ARG SECRET_FILE=$BASE_DIR/secret.txt
 
 ENV PUID 1000
 ENV PGID 1000
@@ -27,7 +26,7 @@ RUN set -e && \
     apk add --no-cache --virtual .build-deps git coreutils gcc make linux-headers libc-dev libressl-dev libffi-dev postgresql-dev && \
     git clone --depth=1 -b $REPO_REF $REPO $BASE_DIR && \
     pip install -r $BASE_DIR/requirements.txt daphne && \
-    apk del .build-deps git
+    apk del .build-deps
 
 RUN set -e && \
     $BASE_DIR/manage.py collectstatic && \
