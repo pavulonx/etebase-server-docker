@@ -52,5 +52,4 @@ fi
 
 hLine
 echo 'Starting ETEBASE server'
-
 daphne -b 0.0.0.0 -p "$PORT" etebase_server.asgi:application
