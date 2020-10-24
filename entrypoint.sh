@@ -12,7 +12,6 @@ hLine() {
 
 PORT=$PORT
 ALLOWED_HOSTS=$ALLOWED_HOSTS
-ETEBASE_DB_NAME=$ETEBASE_DB_NAME
 SUPER_USER=$SUPER_USER
 SUPER_EMAIL=$SUPER_EMAIL
 SUPER_PASS=$SUPER_PASS
@@ -25,7 +24,7 @@ config_templates="$base_dir/config_templates"
 
 # ADJUST INI CONFIG
 # TODO: better sed substitution or use other method
-if [ -n "$PG_DB_NAME" ] && [ -n "$PG_USER" ] && [ -n "$PG_PASSWD" ] && [ -n "$PG_HOST" ]; then
+if [ -n "$PG_DB_NAME" ] && [ -n "$PG_USER" ] && [ -n "$PG_HOST" ] && [ -z "${PG_PASSWD+isset}" ]; then
   cp -f "$config_templates/etebase-server-postgres.ini" "$server_ini"
   PG_PORT=${PG_PORT:-5432}
   sed -i "s/%PG_DB_NAME%/$PG_DB_NAME/g" "$server_ini"
@@ -36,7 +35,7 @@ if [ -n "$PG_DB_NAME" ] && [ -n "$PG_USER" ] && [ -n "$PG_PASSWD" ] && [ -n "$PG
   set -e
 else
   cp -f "$config_templates/etebase-server-sqlite.ini" "$server_ini"
-  ETEBASE_DB_NAME=${ETEBASE_DB_NAME:-db.sqlite3}
+  SQLITE_DB_NAME=${SQLITE_DB_NAME:-db.sqlite3}
   sed -i "s/%ETEBASE_DB_NAME%/$ETEBASE_DB_NAME/g" "$server_ini"
 fi
 
