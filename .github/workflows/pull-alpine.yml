@@ -4,7 +4,8 @@ on:
   pull_request:
     branches: [ master ]
     paths:
-      - 'context/**'
+      - 'entrypoint.sh'
+      - 'config_templates/**'
       - 'tags/alpine/Dockerfile'
       - '.github/workflows/*-alpine.yml'
 
@@ -17,7 +18,7 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_TOKEN }}
-        repository: victorrds/etesync
+        repository: pavulonx/etebase-server
         always_pull: true
         add_git_labels: true
         push: false
