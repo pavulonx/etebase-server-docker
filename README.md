@@ -9,10 +9,12 @@ Docker image for [EteBase](https://www.etebase.com/) based on the [server](https
 
 ## Tags
 
-The following tags are built on latest python image and master branch of EteSync Server 
+The following tags are built on latest python image version `3.8.5` and `v0.5.0` tag of EteSync Server 
+- `0.5.0-alpine`, `0.5.0`, `alpine`, `latest` - [(release:tags/alpine/Dockerfile)](https://github.com/victor-rds/docker-etesync-server/blob/release/tags/alpine/Dockerfile)
+- `0.5.0-debian`, `debian`  [(release:tags/slim/Dockerfile)](https://github.com/victor-rds/docker-etesync-server/blob/release/tags/slim/Dockerfile)
 
-- `debian`  [(release:tags/slim/Dockerfile)](https://github.com/victor-rds/docker-etesync-server/blob/release/tags/slim/Dockerfile)
-- `alpine` and `latest` [(release:tags/alpine/Dockerfile)](https://github.com/victor-rds/docker-etesync-server/blob/release/tags/alpine/Dockerfile)
+The following tags are built on latest python image version `3.8.5` and `master` branch of EteSync Server 
+
 
 ## Usage
 ```docker run -d -e SUPER_USER=admin -e SUPER_EMAIL=admin@example.com -p 80:3735 -v /path/on/host:/data rozenj/etesync```
