@@ -13,22 +13,31 @@ server_ini="$base_dir/etebase-server.ini"
 static_dir=/var/www/etebase
 config_templates="$base_dir/config_templates"
 
-PORT=$PORT
-ALLOWED_HOSTS=$ALLOWED_HOSTS
+PORT=${PORT:-3735}
+DEBUG=$(test "${DEBUG:-false}" = true && echo true || echo false)
+ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost}
+AUTO_MIGRATE=$(test "${AUTO_MIGRATE:-false}" = true && echo true || echo false)
+
 SUPER_USER=$SUPER_USER
 SUPER_EMAIL=$SUPER_EMAIL
 SUPER_PASS=$SUPER_PASS
-AUTO_MIGRATE=$AUTO_MIGRATE
 
-DEBUG=$(test "${DEBUG:-false}" = true && echo true || echo false)
-ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost}
+DATABASE=${DATABASE:-sqlite}
+
+SQLITE_DB_NAME=$SQLITE_DB_NAME
+
+PG_DB_NAME=$PG_DB_NAME
+PG_USER=$PG_USER
+PG_PASSWD=$PG_PASSWD
+PG_HOST=$PG_HOST
+PG_PORT=$PG_PORT
+
 sed "
   s/%DEBUG%/$DEBUG/g
   s/%ALLOWED_HOSTS%/$ALLOWED_HOSTS/g
 " "$config_templates/etebase-server.ini" >>"$server_ini"
 printf "\n" >>"$server_ini"
 
-DATABASE=${DATABASE:-sqlite}
 case "$DATABASE" in
 postgres)
   [ -z "$PG_DB_NAME" ] && echo >&2 'PG_DB_NAME is not set!' && exit 1
@@ -91,7 +100,6 @@ if [ ! -e "$static_dir/static/admin" ] || [ ! -e "$static_dir/static/rest_framew
   echo 'Static files are missing, running manage.py collectstatic...'
   mkdir -p "$static_dir/static"
   "$manage" collectstatic
-  #  chown -R $PUID:$PGID "$static_dir"
   chmod -R a=rX "$static_dir"
 fi
 

@@ -9,15 +9,13 @@ ARG STATIC_DIR=/var/www/etebase
 
 ARG SECRET_FILE=$BASE_DIR/secret.txt
 
-ENV PUID 1000
-ENV PGID 1000
 ENV PORT 3735
 
 WORKDIR $BASE_DIR
 
 RUN set -e && \
-    groupadd -r -g $PGID etebase && \
-    useradd -d $BASE_DIR -r -M -s /bin/sh -g $PGID -u $PUID etebase && \
+    groupadd -r -g 1000 etebase && \
+    useradd -d $BASE_DIR -r -M -s /bin/sh -g 1000 -u 1000 etebase && \
     mkdir -p $DATA_DIR && \
     mkdir -p $STATIC_DIR
 
