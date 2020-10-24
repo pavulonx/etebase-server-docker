@@ -24,7 +24,7 @@ jobs:
           add_git_labels: true
           push: true
           dockerfile: ./tags/debian/Dockerfile
-          tags: debian
+          tags: master-debian
           build_args: REPO_REF=master
 
   build-debian-v0.5.0:
