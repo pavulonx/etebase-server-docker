@@ -6,11 +6,11 @@ on:
     paths:
       - 'entrypoint.sh'
       - 'config_templates/**'
-      - 'tags/alpine/Dockerfile'
-      - '.github/workflows/*-alpine.yml'
+      - 'tags/debian/Dockerfile'
+      - '.github/workflows/*-debian.yml'
 
 jobs:
-  build-alpine:
+  build-debian:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -23,5 +23,5 @@ jobs:
           add_git_labels: true
           push: false
           dockerfile: ./tags/debian/Dockerfile
-          tags: ${{ github.sha }}-alpine
-          build_args: TAG=master
+          tags: ${{ github.sha }}-debian
+          build_args: REPO_REF=master

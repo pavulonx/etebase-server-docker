@@ -24,4 +24,4 @@ jobs:
           push: false
           dockerfile: ./tags/alpine/Dockerfile
           tags: ${{ github.sha }}-alpine
-          build_args: TAG=${{ github.sha }}
+          build_args: REPO_REF=master

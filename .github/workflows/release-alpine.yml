@@ -9,7 +9,7 @@ on:
       - 'tags/alpine/Dockerfile'
       - '.github/workflows/release-alpine.yml'
 jobs:
-  build-master:
+  build-alpine-master:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -24,10 +24,10 @@ jobs:
           add_git_labels: true
           push: true
           dockerfile: ./tags/alpine/Dockerfile
-          tags: alpine
-          build_args: TAG=master
+          tags: alpine, latest
+          build_args: REPO_REF=master
 
-  build-v030:
+  build-alpine-v0.5.0:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -42,5 +42,5 @@ jobs:
           add_git_labels: true
           push: true
           dockerfile: ./tags/alpine/Dockerfile
-          tags: 0.3.0-alpine
-          build_args: TAG=v0.3.0
+          tags: 0.5.0-alpine
+          build_args: REPO_REF=v0.5.0
