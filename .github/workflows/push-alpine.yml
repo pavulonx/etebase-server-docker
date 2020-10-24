@@ -1,4 +1,4 @@
-name: Build Alpine Tag on Pull Requests
+name: Build Alpine Tag on Push master
 
 on:
   push:
