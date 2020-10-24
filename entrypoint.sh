@@ -19,16 +19,39 @@ SUPER_PASS=$SUPER_PASS
 
 base_dir=/etebase
 manage="$base_dir/manage.py"
+server_ini="$base_dir/etebase-server.ini"
 static_dir=/var/www/etebase
+config_templates="$base_dir/config_templates"
 
 # ADJUST INI CONFIG
+# TODO: better sed substitution or use other method
+if [ -n "$PG_DB_NAME" ] && [ -n "$PG_USER" ] && [ -n "$PG_PASSWD" ] && [ -n "$PG_HOST" ]; then
+  cp -f "$config_templates/etebase-server-postgres.ini" "$server_ini"
+  PG_PORT=${PG_PORT:-5432}
+  sed -i "s/%PG_DB_NAME%/$PG_DB_NAME/g" "$server_ini"
+  sed -i "s/%PG_USER%/$PG_USER/g" "$server_ini"
+  sed -i "s/%PG_PASSWD%/$PG_PASSWD/g" "$server_ini"
+  sed -i "s/%PG_HOST%/$PG_HOST/g" "$server_ini"
+  sed -i "s/%PG_PORT%/$PG_PORT/g" "$server_ini"
+  set -e
+
+  # wait for postgres
+  until PGPASSWORD=$PG_PASSW psql -h "$PG_HOST" -U "$PG_USER" -c '\q'; do
+    >&2 echo "Postgres is unavailable - sleeping"
+    sleep 1
+  done
+  >&2 echo "Postgres is up, proceeding"
+
+else
+  cp -f "$config_templates/etebase-server-sqlite.ini" "$server_ini"
+  ETEBASE_DB_NAME=${ETEBASE_DB_NAME:-db.sqlite3}
+  sed -i "s/%ETEBASE_DB_NAME%/$ETEBASE_DB_NAME/g" "$server_ini"
+fi
+
 ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost}
-sed -i "s/%ALLOWED_HOSTS%/$ALLOWED_HOSTS/g" "$base_dir/etebase-server.ini"
+sed -i "s/%ALLOWED_HOSTS%/$ALLOWED_HOSTS/g" "$server_ini"
 
-ETEBASE_DB_NAME=${ETEBASE_DB_NAME:-db.sqlite3}
-sed -i "s/%ETEBASE_DB_NAME%/$ETEBASE_DB_NAME/g" "$base_dir/etebase-server.ini"
-
-cat "$base_dir/etebase-server.ini"
+cat "$server_ini"
 echo
 
 if "$manage" showmigrations -l | grep -q ' \[ \] 0001_initial'; then
@@ -60,7 +83,7 @@ if [ ! -e "$static_dir/static/admin" ] || [ ! -e "$static_dir/static/rest_framew
   echo 'Static files are missing, running manage.py collectstatic...'
   mkdir -p "$static_dir/static"
   "$manage" collectstatic
-#  chown -R $PUID:$PGID "$static_dir"
+  #  chown -R $PUID:$PGID "$static_dir"
   chmod -R a=rX "$static_dir"
 fi
 

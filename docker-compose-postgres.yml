@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  etesync:
+    container_name: etesync
+    image: etebase
+#    build:
+#      context: .
+#      dockerfile: tags/alpine/Dockerfile
+    restart: always
+    ports:
+      - "8877:3735"
+#    volumes:
+#      - /var/www/etebase:/var/www/etebase
+    environment:
+      SUPER_USER: ${SUPER_USER:-admin}
+      SUPER_EMAIL: ${SUPER_EMAIL:-admin@example.com}
+      SUPER_PASS: ${SUPER_PASS:-admin}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+      PG_DB_NAME: etebase
+      PG_USER: etebase
+      PG_PASSWD: etebase
+      PG_HOST: postgres
+      PG_PORT: 5432
+
+  postgres:
+    container_name: postgres
+    image: postgres:alpine
+    restart: always
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: etebase
+      POSTGRES_DB: etebase
+      POSTGRES_USER: etebase

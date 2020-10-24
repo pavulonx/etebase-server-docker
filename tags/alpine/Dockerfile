@@ -41,7 +41,7 @@ RUN set -e && \
     chown -R etebase:etebase $BASE_DIR && \
     chmod -R ug=rwX $BASE_DIR
 
-COPY --chown=etebase:etebase etebase/etebase-server.ini /etebase
+COPY --chown=etebase:etebase config_templates /etebase/config_templates
 
 COPY entrypoint.sh /
 RUN chmod a=rx /entrypoint.sh

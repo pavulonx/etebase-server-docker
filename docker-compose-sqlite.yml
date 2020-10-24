@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  etesync:
+    container_name: etesync
+    build:
+      context: .
+      dockerfile: tags/alpine/Dockerfile
+    restart: always
+    entrypoint: /entrypoint.sh
+    ports:
+      - "8877:3735"
+    volumes:
+      - ./data:/data
+      - /var/www/etebase:/var/www/etebase
+    environment:
+      SUPER_USER: ${SUPER_USER:-admin}
+      SUPER_EMAIL: ${SUPER_EMAIL:-admin@example.com}
+      SUPER_PASS: ${SUPER_PASS:-admin}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
