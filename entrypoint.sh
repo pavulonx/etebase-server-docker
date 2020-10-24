@@ -19,6 +19,7 @@ SUPER_PASS=$SUPER_PASS
 
 base_dir=/etebase
 manage="$base_dir/manage.py"
+static_dir=/var/www/etebase
 
 # ADJUST INI CONFIG
 ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost}
@@ -54,6 +55,14 @@ hLine
 "$manage" showmigrations --list | grep -v '\[X\]'
 "$manage" makemigrations
 "$manage" migrate
+
+if [ ! -e "$static_dir/static/admin" ] || [ ! -e "$static_dir/static/rest_framework" ]; then
+  echo 'Static files are missing, running manage.py collectstatic...'
+  mkdir -p "$static_dir/static"
+  "$manage" collectstatic
+#  chown -R $PUID:$PGID "$static_dir"
+  chmod -R a=rX "$static_dir"
+fi
 
 hLine
 echo 'Starting ETEBASE server'
