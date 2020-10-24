@@ -15,17 +15,14 @@ The following tags are built on latest python image and master branch of EteSync
 - `alpine` and `latest` [(release:tags/alpine/Dockerfile)](https://github.com/victor-rds/docker-etesync-server/blob/release/tags/alpine/Dockerfile)
 
 ## Usage
-
-```docker run  -d -e SUPER_USER=admin -e SUPER_EMAIL=admin@example.com -p 80:3735 -v /path/on/host:/data rozenj/etesync```
+```docker run -d -e SUPER_USER=admin -e SUPER_EMAIL=admin@example.com -p 80:3735 -v /path/on/host:/data rozenj/etesync```
 
 Create a container running EteSync using http protocol.
 
 ## Volumes
-
-`/data`: database file location
+- `/data`: database file location if using SQLite
 
 ## Ports
-
 This image exposes the **3735** TCP Port
 
 ### Environment Variables
