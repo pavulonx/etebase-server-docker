@@ -23,10 +23,13 @@ RUN set -e && \
 
 RUN set -e && \
     apk add --no-cache openssl libressl mailcap libpq && \
-    apk add --no-cache --virtual .build-deps git coreutils gcc make linux-headers libc-dev libressl-dev libffi-dev postgresql-dev && \
+    apk add --no-cache --virtual .build-deps \
+        git coreutils gcc make linux-headers libc-dev \
+        libressl-dev libffi-dev postgresql-dev && \
     git clone --depth=1 -b $REPO_REF $REPO $BASE_DIR && \
     pip install -r $BASE_DIR/requirements.txt daphne && \
-    apk del .build-deps
+    apk del .build-deps && \
+    apk add postgresql-client
 
 RUN set -e && \
     $BASE_DIR/manage.py collectstatic && \
