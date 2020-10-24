@@ -1,9 +1,8 @@
 # ![](https://raw.githubusercontent.com/etesync/server/master/icon.svg) EteBase Sever Docker Images
 
-![Build and Push Base Tags](https://github.com/victor-rds/docker-etesync-server/workflows/Build%20and%20Push%20Base%20Tags/badge.svg?branch=release)
-![Build and Push Slim Tags](https://github.com/victor-rds/docker-etesync-server/workflows/Build%20and%20Push%20Slim%20Tags/badge.svg?branch=release)
-![Build and Push Alpine Tags](https://github.com/victor-rds/docker-etesync-server/workflows/Build%20and%20Push%20Alpine%20Tags/badge.svg?branch=release)
-
+![Release images](https://github.com/rozenj/etebase-server-docker/workflows/Release%20images/badge.svg)
+![Build Alpine based image master](https://github.com/rozenj/etebase-server-docker/workflows/Build%20Alpine%20based%20image%20master/badge.svg)
+![Build Debian based image master](https://github.com/rozenj/etebase-server-docker/workflows/Build%20Debian%20based%20image%20master/badge.svg)
 Docker image for [EteBase](https://www.etebase.com/) based on the [server](https://github.com/etesync/server) repository by [Tom Hacohen](https://github.com/tasn).
 
 

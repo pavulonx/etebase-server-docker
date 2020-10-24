@@ -1,4 +1,4 @@
-name: Build Debian based image on push master
+name: Build Debian based image master
 
 on:
   push:

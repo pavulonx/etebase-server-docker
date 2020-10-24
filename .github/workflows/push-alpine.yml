@@ -1,4 +1,4 @@
-name: Build Alpine based image on push master
+name: Build Alpine based image master
 
 on:
   push:
