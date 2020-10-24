@@ -16,7 +16,7 @@ The following tags are built on latest python image version `3.8.5` and `master`
 
 
 ## Usage
-```docker run -d -e SUPER_USER=admin -e SUPER_EMAIL=admin@example.com -p 80:3735 -v /path/on/host:/data rozenj/etesync```
+```docker run -d -e SUPER_USER=admin -e SUPER_EMAIL=admin@example.com -p 80:3735 -v /path/on/host:/data pavulonx/etebase-server```
 
 Create a container running EteSync using http protocol.
 
