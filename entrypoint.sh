@@ -1,14 +1,17 @@
 #!/bin/sh
-
 set -e
 
-if [ -n "$@" ]; then
-  exec "$@"
-fi
+[ -n "$@" ] && exec "$@"
 
 hLine() {
   echo "├─────────────────────────────────────────────────────────────────────"
 }
+
+base_dir=/etebase
+manage="$base_dir/manage.py"
+server_ini="$base_dir/etebase-server.ini"
+static_dir=/var/www/etebase
+config_templates="$base_dir/config_templates"
 
 PORT=$PORT
 ALLOWED_HOSTS=$ALLOWED_HOSTS
@@ -17,34 +20,42 @@ SUPER_EMAIL=$SUPER_EMAIL
 SUPER_PASS=$SUPER_PASS
 AUTO_MIGRATE=$AUTO_MIGRATE
 
-base_dir=/etebase
-manage="$base_dir/manage.py"
-server_ini="$base_dir/etebase-server.ini"
-static_dir=/var/www/etebase
-config_templates="$base_dir/config_templates"
-
-# ADJUST INI CONFIG
-# TODO: better sed substitution or use other method
-if [ -n "$PG_DB_NAME" ] && [ -n "$PG_USER" ] && [ -n "$PG_HOST" ] && [ -z "${PG_PASSWD+isset}" ]; then
-  cp -f "$config_templates/etebase-server-postgres.ini" "$server_ini"
-  PG_PORT=${PG_PORT:-5432}
-  sed -i "s/%PG_DB_NAME%/$PG_DB_NAME/g" "$server_ini"
-  sed -i "s/%PG_USER%/$PG_USER/g" "$server_ini"
-  sed -i "s/%PG_PASSWD%/$PG_PASSWD/g" "$server_ini"
-  sed -i "s/%PG_HOST%/$PG_HOST/g" "$server_ini"
-  sed -i "s/%PG_PORT%/$PG_PORT/g" "$server_ini"
-  set -e
-else
-  cp -f "$config_templates/etebase-server-sqlite.ini" "$server_ini"
-  SQLITE_DB_NAME=${SQLITE_DB_NAME:-db.sqlite3}
-  sed -i "s/%ETEBASE_DB_NAME%/$ETEBASE_DB_NAME/g" "$server_ini"
-fi
-
+DEBUG=$(test "${DEBUG:-false}" = true && echo true || echo false)
 ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost}
-sed -i "s/%ALLOWED_HOSTS%/$ALLOWED_HOSTS/g" "$server_ini"
+sed "
+  s/%DEBUG%/$DEBUG/g
+  s/%ALLOWED_HOSTS%/$ALLOWED_HOSTS/g
+" "$config_templates/etebase-server.ini" >>"$server_ini"
+printf "\n" >>"$server_ini"
 
-cat "$server_ini"
-echo
+DATABASE=${DATABASE:-sqlite}
+case "$DATABASE" in
+postgres)
+  [ -z "$PG_DB_NAME" ] && echo >&2 'PG_DB_NAME is not set!' && exit 1
+  [ -z "$PG_USER" ] && echo >&2 'PG_USER is not set' && exit 1
+  [ -z "$PG_HOST" ] && echo >&2 'PG_HOST is not set' && exit 1
+  PG_PORT=${PG_PORT:-5432}
+  sed "
+    s/%PG_DB_NAME%/$PG_DB_NAME/g
+    s/%PG_USER%/$PG_USER/g
+    s/%PG_PASSWD%/$PG_PASSWD/g
+    s/%PG_HOST%/$PG_HOST/g
+    s/%PG_PORT%/$PG_PORT/g
+  " "$config_templates/etebase-server-postgres.ini" >>"$server_ini"
+  ;;
+sqlite)
+  SQLITE_DB_NAME=${SQLITE_DB_NAME:-db.sqlite3}
+  sed "
+    s/%SQLITE_DB_NAME%/$SQLITE_DB_NAME/g
+  " "$config_templates/etebase-server-sqlite.ini" >>"$server_ini"
+  ;;
+*)
+  echo >&2 "Unsupported database $DATABASE"
+  exit 1
+  ;;
+esac
+
+$DEBUG && echo "Server config in $server_ini" && cat "$server_ini"
 
 if "$manage" showmigrations -l | grep -q ' \[ \] 0001_initial'; then
   hLine
@@ -69,7 +80,7 @@ fi
 hLine
 # MIGRATION
 "$manage" showmigrations --list | grep -v '\[X\]'
-if [ "${AUTO_MIGRATE:-false}" = "true" ]; then
+if [ "$AUTO_MIGRATE" = true ]; then
   "$manage" makemigrations
   "$manage" migrate
 else
