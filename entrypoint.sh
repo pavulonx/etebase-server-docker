@@ -22,7 +22,7 @@ if "$manage" showmigrations -l journal | grep -q ' \[ \] 0001_initial'; then
   echo 'Create Database'
   "$manage" migrate
   
-  if [ "$SUPER_USER" ]; then
+  if [ -n "$SUPER_USER" ]; then
     hLine
     if [ -z "$SUPER_PASS" ]; then
       SUPER_PASS=$(openssl rand -base64 31)
