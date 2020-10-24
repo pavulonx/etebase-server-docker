@@ -1,4 +1,4 @@
-# ![](https://raw.githubusercontent.com/etesync/server/master/icon.svg) EteSync Sever Docker Images
+# ![](https://raw.githubusercontent.com/etesync/server/master/icon.svg) EteBase Sever Docker Images
 
 ![Build and Push Base Tags](https://github.com/victor-rds/docker-etesync-server/workflows/Build%20and%20Push%20Base%20Tags/badge.svg?branch=release)
 ![Build and Push Slim Tags](https://github.com/victor-rds/docker-etesync-server/workflows/Build%20and%20Push%20Slim%20Tags/badge.svg?branch=release)

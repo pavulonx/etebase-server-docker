@@ -3,9 +3,7 @@ version: '3'
 services:
   etesync:
     container_name: etesync
-    build:
-      context: .
-      dockerfile: tags/alpine/Dockerfile
+    image: pavulonx/etebase-server
     restart: always
     entrypoint: /entrypoint.sh
     ports:
