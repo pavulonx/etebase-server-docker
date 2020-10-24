@@ -22,7 +22,7 @@ RUN set -e && \
 RUN set -e && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-        build-essential libssl-dev && \
+        build-essential libssl-dev git && \
     git clone --depth=1 -b $REPO_REF $REPO $BASE_DIR && \
     pip install -r $BASE_DIR/requirements.txt daphne && \
     apt-get remove --purge -y build-essential && \
