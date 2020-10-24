@@ -42,14 +42,14 @@ RUN set -e && \
     chmod -R ug=rwX $BASE_DIR
 
 COPY --chown=etebase:etebase etebase/etebase-server.ini /etebase
-COPY entrypoint.sh /
 
-# Fix permissions
-RUN chown root:root /entrypoint.sh && \
-    chmod a=rx /entrypoint.sh
+COPY entrypoint.sh /
+RUN chmod a=rx /entrypoint.sh
 
 VOLUME $DATA_DIR
 
 EXPOSE $PORT
 
 ENTRYPOINT ["/entrypoint.sh"]
+
+USER etebase
