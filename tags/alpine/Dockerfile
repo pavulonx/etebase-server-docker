@@ -1,6 +1,7 @@
 FROM python:3.8.5-alpine
 
-ARG TAG='master'
+ARG REPO='https://github.com/etesync/server.git'
+ARG REPO_REF='master'
 
 ENV BASE_DIR /etebase
 ENV DATA_DIR /data
@@ -19,12 +20,16 @@ RUN set -e && \
     addgroup -g $PGID -S etebase && \
     adduser -h $BASE_DIR -s /bin/sh -D -H -G etebase -u $PUID etebase && \
     mkdir -p $DATA_DIR && \
-    mkdir -p $STATIC_DIR && \
+    mkdir -p $STATIC_DIR
+
+RUN set -e && \
     apk add --no-cache openssl libressl mailcap libpq && \
     apk add --no-cache --virtual .build-deps git coreutils gcc make linux-headers libc-dev libressl-dev libffi-dev postgresql-dev && \
-    git clone --depth=1 https://github.com/etebase/server.git $BASE_DIR && \
+    git clone --depth=1 -b $REPO_REF $REPO $BASE_DIR && \
     pip install -r $BASE_DIR/requirements.txt daphne && \
-    apk del .build-deps git && \
+    apk del .build-deps git
+
+RUN set -e && \
     $BASE_DIR/manage.py collectstatic && \
     mv $BASE_DIR/static $STATIC_DIR/ && \
     ln -s $STATIC_DIR/static $BASE_DIR/static && \
