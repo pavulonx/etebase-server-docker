@@ -42,5 +42,5 @@ jobs:
           add_git_labels: true
           push: true
           dockerfile: ./tags/alpine/Dockerfile
-          tags: 0.5.0-alpine, 0.5.0, latest
+          tags: 0.5.0-alpine, 0.5.0, alpine, latest
           build_args: REPO_REF=v0.5.0
