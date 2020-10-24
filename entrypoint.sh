@@ -15,6 +15,7 @@ ALLOWED_HOSTS=$ALLOWED_HOSTS
 SUPER_USER=$SUPER_USER
 SUPER_EMAIL=$SUPER_EMAIL
 SUPER_PASS=$SUPER_PASS
+AUTO_MIGRATE=$AUTO_MIGRATE
 
 base_dir=/etebase
 manage="$base_dir/manage.py"
@@ -66,9 +67,14 @@ if "$manage" showmigrations -l | grep -q ' \[ \] 0001_initial'; then
 fi
 
 hLine
+# MIGRATION
 "$manage" showmigrations --list | grep -v '\[X\]'
-"$manage" makemigrations
-"$manage" migrate
+if [ -n "$AUTO_MIGRATE" ]; then
+  "$manage" makemigrations
+  "$manage" migrate
+else
+  echo "If necessary please run: docker exec -it $HOSTNAME python manage.py migrate"
+fi
 
 if [ ! -e "$static_dir/static/admin" ] || [ ! -e "$static_dir/static/rest_framework" ]; then
   echo 'Static files are missing, running manage.py collectstatic...'

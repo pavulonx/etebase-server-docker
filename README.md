@@ -79,12 +79,6 @@ If `AUTO_MIGRATE` is not set you can update by running:
 
 ```docker exec -it {container_name} python manage.py migrate```
 
-### _Using uWSGI with HTTPS_
-
-If you want to run EteSync Server HTTPS using uWSGI you need to pass certificates or the image will generate a self-signed certificate for `localhost`.
-
-By default EteSync will look for the files `/certs/crt.pem` and `/certs/key.pem`, if for some reason you change this location change the **X509_CRT** and **X509_KEY** environment variables
-
 ### _Serving Static Files_
 
 When behind a reverse-proxy/http server compatible `uwsgi` protocol the static files are located at `/var/www/etesync/static`, files will be copied if missing on start.
