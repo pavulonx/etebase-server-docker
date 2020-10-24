@@ -12,8 +12,9 @@ hLine() {
 
 manage="$BASE_DIR/manage.py"
 
-ALLOWED_HOSTS=${ALLOWED_HOSTS:-"localhost"}
-sed -i "s/%ALLOWED_HOSTS%/$ALLOWED_HOSTS/g" "$BASE_DIR/etesync.ini"
+ALLOWED_HOSTS=${ALLOWED_HOSTS:-"$(hostname)"}
+sed -i "s/%ALLOWED_HOSTS%/$ALLOWED_HOSTS/g" "$BASE_DIR/etebase_server.ini"
+cat "$BASE_DIR/etebase_server.ini"
 
 
 if "$manage" showmigrations -l journal | grep -q ' \[ \] 0001_initial'; then
