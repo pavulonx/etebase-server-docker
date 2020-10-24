@@ -4,7 +4,7 @@
 ![Build and Push Slim Tags](https://github.com/victor-rds/docker-etesync-server/workflows/Build%20and%20Push%20Slim%20Tags/badge.svg?branch=release)
 ![Build and Push Alpine Tags](https://github.com/victor-rds/docker-etesync-server/workflows/Build%20and%20Push%20Alpine%20Tags/badge.svg?branch=release)
 
-Docker image for [EteSync](https://www.etesync.com/) based on the [server](https://github.com/etesync/server) repository by [Tom Hacohen](https://github.com/tasn).
+Docker image for [EteBase](https://www.etebase.com/) based on the [server](https://github.com/etesync/server) repository by [Tom Hacohen](https://github.com/tasn).
 
 
 ## Tags
@@ -23,7 +23,7 @@ Starting on v0.3.0 ther will be builds base stable published version of EteSync
 
 ## Usage
 
-```docker run  -d -e SUPER_USER=admin -p 80:3735 -v /path/on/host:/data victorrds/etesync```
+```docker run  -d -e SUPER_USER=admin -e SUPER_EMAIL=admin@example.com -p 80:3735 -v /path/on/host:/data rozenj/etesync```
 
 Create a container running EteSync using http protocol.
 
