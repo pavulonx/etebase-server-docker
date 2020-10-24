@@ -13,8 +13,8 @@ hLine() {
 manage="$BASE_DIR/manage.py"
 
 ALLOWED_HOSTS=${ALLOWED_HOSTS:-"$(hostname)"}
-sed -i "s/%ALLOWED_HOSTS%/$ALLOWED_HOSTS/g" "$BASE_DIR/etebase_server.ini"
-cat "$BASE_DIR/etebase_server.ini"
+sed -i "s/%ALLOWED_HOSTS%/$ALLOWED_HOSTS/g" "$BASE_DIR/etebase-server.ini"
+cat "$BASE_DIR/etebase-server.ini"
 
 
 if "$manage" showmigrations -l journal | grep -q ' \[ \] 0001_initial'; then
@@ -51,6 +51,6 @@ if [ ! -e "$STATIC_DIR/static/admin" ] || [ ! -e "$STATIC_DIR/static/rest_framew
 fi
 
 hLine
-echo 'Starting ETESync'
+echo 'Starting ETEBASE server'
 
 daphne -b 0.0.0.0 -p "$PORT" etebase_server.asgi:application

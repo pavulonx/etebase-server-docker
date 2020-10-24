@@ -37,7 +37,7 @@ RUN set -e && \
     chown -R etesync:etesync $BASE_DIR && \
     chmod -R ug=rwX $BASE_DIR
 
-COPY --chown=etesync:etesync etesync/etesync.ini /etesync
+COPY --chown=etesync:etesync etebase/etebase-server.ini /etesync
 COPY entrypoint.sh /
 
 # Fix permissions
