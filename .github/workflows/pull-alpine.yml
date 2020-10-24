@@ -1,4 +1,4 @@
-name: Build Alpine Tag on Pull Requests
+name: Build Alpine based image on Pull Requests
 
 on:
   pull_request:

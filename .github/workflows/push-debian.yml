@@ -1,4 +1,4 @@
-name: Build Alpine Tag on Push master
+name: Build Debian based image on push master
 
 on:
   push:

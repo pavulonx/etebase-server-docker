@@ -16,8 +16,8 @@ ENV PORT 3735
 WORKDIR $BASE_DIR
 
 RUN set -e && \
-    addgroup -g $PGID -S etebase && \
-    adduser -h $BASE_DIR -s /bin/sh -D -H -G etebase -u $PUID etebase && \
+    groupadd -r -g $PGID etebase && \
+	useradd -d $BASE_DIR -r -M -s /bin/sh -g $PGID -u $PUID etebase && \
     mkdir -p $DATA_DIR && \
     mkdir -p $STATIC_DIR
 

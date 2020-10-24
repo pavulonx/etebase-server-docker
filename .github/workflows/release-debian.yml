@@ -1,4 +1,4 @@
-name: Build and Push Alpine Tags
+name: Build and Push Debian based image
 
 on:
   push:
