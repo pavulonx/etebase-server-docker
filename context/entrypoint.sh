@@ -35,7 +35,7 @@ PG_PORT=$PG_PORT
 sed "
   s/%DEBUG%/$DEBUG/g
   s/%ALLOWED_HOSTS%/$ALLOWED_HOSTS/g
-" "$config_templates/etebase-server.ini" >>"$server_ini"
+" "$config_templates/etebase-server.ini" >"$server_ini"
 printf "\n" >>"$server_ini"
 
 case "$DATABASE" in
