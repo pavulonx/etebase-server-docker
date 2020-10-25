@@ -14,12 +14,12 @@ Docker image for [EteBase](https://www.etebase.com/) based on the [server](https
 ## Tags
 
 The following tags are built on latest python image version `3.8.5` and `v0.5.0` tag of EteSync Server 
-- `0.5.0-alpine`, `alpine` - [(release:tags/alpine/Dockerfile)](https://github.com/rozenj/etebase-server-docker/blob/release/tags/alpine/Dockerfile)
-- `0.5.0`, `latest`  [(release:tags/base/Dockerfile)](https://github.com/rozenj/etebase-server-docker/blob/release/tags/slim/Dockerfile)
+- `0.5.0-alpine`, `alpine` - [(release:tags/alpine/Dockerfile)](tags/alpine/Dockerfile)
+- `0.5.0`, `latest`  [(release:tags/base/Dockerfile)](tags/base/Dockerfile)
 
 The following tags are built on latest python image version `3.8.5` and `master` branch of EteSync Server 
-- `master-alpine` - [(release:tags/alpine/Dockerfile)](https://github.com/rozenj/etebase-server-docker/blob/release/tags/alpine/Dockerfile)
-- `master`  [(release:tags/base/Dockerfile)](https://github.com/rozenj/etebase-server-docker/blob/release/tags/slim/Dockerfile)
+- `master-alpine` - [(release:tags/alpine/Dockerfile)](tags/alpine/Dockerfile)
+- `master`  [(release:tags/base/Dockerfile)](tags/base/Dockerfile)
 
 
 ## Usage
