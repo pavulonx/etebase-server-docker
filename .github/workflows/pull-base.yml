@@ -5,11 +5,11 @@ on:
     branches: [ master ]
     paths:
       - 'context/**'
-      - 'tags/debian/Dockerfile'
-      - '.github/workflows/*-debian.yml'
+      - 'tags/base/Dockerfile'
+      - '.github/workflows/*-base.yml'
 
 jobs:
-  build-debian:
+  build-base:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,6 +21,6 @@ jobs:
           always_pull: true
           add_git_labels: true
           push: false
-          dockerfile: ./tags/debian/Dockerfile
-          tags: ${{ github.sha }}-debian
+          dockerfile: ./tags/base/Dockerfile
+          tags: ${{ github.sha }}
           build_args: REPO_REF=master

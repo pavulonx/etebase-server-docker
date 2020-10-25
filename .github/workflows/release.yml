@@ -19,7 +19,7 @@ jobs:
           add_git_labels: true
           push: true
           dockerfile: ./tags/alpine/Dockerfile
-          tags: master-alpine, master
+          tags: master-alpine
           build_args: REPO_REF=master
 
   build-alpine-v0-5-0:
@@ -35,7 +35,39 @@ jobs:
           add_git_labels: true
           push: true
           dockerfile: ./tags/alpine/Dockerfile
-          tags: 0.5.0-alpine, 0.5.0, alpine, latest
+          tags: 0.5.0-alpine, alpine
+          build_args: REPO_REF=v0.5.0
+
+  build-base-master:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: docker/build-push-action@v1.1.0
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+          repository: pavulonx/etebase-server
+          always_pull: true
+          add_git_labels: true
+          push: true
+          dockerfile: ./tags/base/Dockerfile
+          tags: master
+          build_args: REPO_REF=master
+
+  build-base-v0-5-0:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: docker/build-push-action@v1.1.0
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+          repository: pavulonx/etebase-server
+          always_pull: true
+          add_git_labels: true
+          push: true
+          dockerfile: ./tags/base/Dockerfile
+          tags: 0.5.0, latest
           build_args: REPO_REF=v0.5.0
 
       - uses: actions/create-release@v1
@@ -49,35 +81,3 @@ jobs:
             Release version of docker images ${{ github.ref }}
           draft: false
           prerelease: false
-
-  build-debian-master:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: docker/build-push-action@v1.1.0
-        with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_TOKEN }}
-          repository: pavulonx/etebase-server
-          always_pull: true
-          add_git_labels: true
-          push: true
-          dockerfile: ./tags/debian/Dockerfile
-          tags: master-debian
-          build_args: REPO_REF=master
-
-  build-debian-v0-5-0:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: docker/build-push-action@v1.1.0
-        with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_TOKEN }}
-          repository: pavulonx/etebase-server
-          always_pull: true
-          add_git_labels: true
-          push: true
-          dockerfile: ./tags/debian/Dockerfile
-          tags: 0.5.0-debian, debian
-          build_args: REPO_REF=v0.5.0
