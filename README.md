@@ -1,4 +1,7 @@
-# ![](https://raw.githubusercontent.com/etesync/server/master/icon.svg) EteBase Sever Docker Images
+<p align="center">
+  <img width="120" src="https://raw.githubusercontent.com/etesync/server/master/icon.svg" />
+  <h1 align="center">Etebase Sever Docker Image</h1>
+</p>
 
 ![Release images](https://github.com/rozenj/etebase-server-docker/workflows/Release%20images/badge.svg)
 ![Build Alpine based image master](https://github.com/rozenj/etebase-server-docker/workflows/Build%20Alpine%20based%20image%20master/badge.svg)
