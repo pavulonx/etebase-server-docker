@@ -39,10 +39,6 @@ This image exposes the **3735** TCP Port
 - **PORT**: Defines port on which application should be run 
 - **AUTO_MIGRATE**: Trigger database update/migration every time the container starts, default: `false `, more details below.
 - **ALLOWED_HOSTS**: the ALLOWED_HOSTS settings, must be valid domains separated by ,. default: localhost;
-    - // **SECRET_FILE**: Defines file that contains the value for django's SECRET_KEY if not found a new one is generated. default: /etesync/secret.txt.
-    - // **LANGUAGE_CODE**: Django language code, default: en-us;
-    - // **USE_TZ**: Force Django to use time-zone-aware datetime objects internally, defaults to false;
-    - // **TIME_ZONE**: time zone, defaults to UTC;
 - **DEBUG**: enables Django Debug mode, not recommended for production defaults to `false`;
 
 #### Database
