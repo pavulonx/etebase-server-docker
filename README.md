@@ -6,6 +6,8 @@
 
 Docker image for [EteBase](https://www.etebase.com/) based on the [server](https://github.com/etesync/server) repository by [Tom Hacohen](https://github.com/tasn).
 
+**DOCKER HUB**: https://hub.docker.com/r/pavulonx/etebase-server
+
 ## Tags
 
 The following tags are built on latest python image version `3.8.5` and `v0.5.0` tag of EteSync Server 
