@@ -4,8 +4,7 @@ on:
   push:
     branches: [ master ]
     paths:
-      - 'entrypoint.sh'
-      - 'config_templates/**'
+      - 'context/**'
       - 'tags/alpine/Dockerfile'
       - '.github/workflows/*-alpine.yml'
 

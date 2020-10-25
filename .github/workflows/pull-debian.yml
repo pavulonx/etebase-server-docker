@@ -4,8 +4,7 @@ on:
   pull_request:
     branches: [ master ]
     paths:
-      - 'entrypoint.sh'
-      - 'config_templates/**'
+      - 'context/**'
       - 'tags/debian/Dockerfile'
       - '.github/workflows/*-debian.yml'
 

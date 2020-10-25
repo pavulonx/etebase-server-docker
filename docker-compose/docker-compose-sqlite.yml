@@ -5,9 +5,8 @@ services:
     container_name: etesync
     image: pavulonx/etebase-server
     restart: always
-    entrypoint: /entrypoint.sh
     ports:
-      - "8877:3735"
+      - "8000:3735"
     volumes:
       - ./data:/data
       - /var/www/etebase:/var/www/etebase

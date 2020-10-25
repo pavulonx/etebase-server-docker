@@ -41,9 +41,8 @@ RUN set -e && \
     chown -R etebase:etebase $BASE_DIR && \
     chmod -R ug=rwX $BASE_DIR
 
-COPY --chown=etebase:etebase config_templates /etebase/config_templates
-
-COPY entrypoint.sh /
+COPY --chown=etebase:etebase context/config_templates /etebase/config_templates
+COPY --chown=etebase:etebase context/entrypoint.sh /
 RUN chmod a=rx /entrypoint.sh
 
 VOLUME $DATA_DIR

@@ -82,7 +82,6 @@ if "$manage" showmigrations -l | grep -q ' \[ \] 0001_initial'; then
 
     export DJANGO_SUPERUSER_PASSWORD=$SUPER_PASS
     "$manage" createsuperuser --username "$SUPER_USER" --email "$SUPER_EMAIL" --noinput
-    #    "$manage" shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('$SUPER_USER' , '$SUPER_EMAIL', '$SUPER_PASS')"
   fi
 fi
 
